@@ -1,0 +1,23 @@
+{
+  "name": "web3tickets",
+  "version": "1.0.0",
+  "description": "Web3Tickets é um sistema de venda e autenticação de ingressos para eventos usando NFTs e blockchain. Ele foi construído em torno de tecnologias blockchain, como Ethereum e Solidity, e usa tokens não fungíveis (NFTs) para criar e gerenciar ingressos únicos para eventos. O sistema de autenticação de ingressos é totalmente descentralizado, o que significa que os ingressos são armazenados na blockchain, tornando-os imutáveis e à prova de falsificação.",
+  "main": "truffle-config.js",
+  "scripts": {
+    "test": "truffle test",
+    "start_local": "ganache -i 666 -m \"teach core boat want author animal neglect social bone page modify mass\"",
+    "vmumbai": "truffle run verify Contract --network mumbai",
+    "vmatic": "truffle run verify Contract --network matic",
+    "mmumbai": "truffle migrate --network mumbai",
+    "mmatic": "truffle migrate --network matic",
+    "script_test": "truffle exec scripts/script.js --network mumbai"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.1.7",
+    "dotenv": "^16.0.3",
+    "truffle-plugin-verify": "^0.6.1"
+  }
+}
