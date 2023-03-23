@@ -10,14 +10,22 @@ contract TicketToken is ERC721, ERC721Burnable, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
+    address minterAddress;
 
-    constructor() ERC721("TicketToken", "TICKET") {}
+    constructor(address _minterAddress) ERC721("TicketToken", "TICKET") {
+        minterAddress = _minterAddress;
+    }
 
     function _baseURI() internal pure override returns (string memory) {
         return "https://web3_ticket.com/nfts/";
     }
 
-    function safeMint(address to) public onlyOwner returns (uint256 _tokenId) {
+    modifier ownerOrMinter() {
+        require((msg.sender == owner()) || (msg.sender == minterAddress));
+        _;
+    }
+
+    function safeMint(address to) public ownerOrMinter returns (uint256 _tokenId) {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
