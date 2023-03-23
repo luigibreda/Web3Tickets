@@ -7,13 +7,13 @@ module.exports = async function (deployer, _network, accounts) {
     if (_network === "development") {
         wallets._owner = accounts[0];
         _overwrite = true;
-    } else if (_network === "testnet" && devConfig) {
+    } else if (_network === "mumbai" && devConfig) {
         wallets = walletsTestnetDev;
         _overwrite = true;
-    } else if (_network === "testnet" && !devConfig) {
+    } else if (_network === "mumbai" && !devConfig) {
         wallets = walletsTestnet;
         _overwrite = true;
-    } else if (_network === "bsc") {
+    } else if (_network === "matic") {
         wallets = walletsMainnet;
         _overwrite = true;
     }
