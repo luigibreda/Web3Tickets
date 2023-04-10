@@ -6,26 +6,21 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract TicketToken is ERC721, ERC721Burnable, Ownable {
+contract SpecialTicket is ERC721, ERC721Burnable, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
-    address minterAddress;
+    string eventId;
 
-    constructor(address _minterAddress) ERC721("TicketToken", "TICKET") {
-        minterAddress = _minterAddress;
+    constructor(string memory _eventId) ERC721("SpecialTicket", "TICKET") {
+        eventId = _eventId;
     }
 
-    function _baseURI() internal pure override returns (string memory) {
-        return "https://web3_ticket.com/nfts/";
+    function _baseURI() internal view override returns (string memory) {
+        return string(abi.encodePacked("https://web3_ticket.com/nfts/erc721/", eventId, "/"));
     }
 
-    modifier ownerOrMinter() {
-        require((msg.sender == owner()) || (msg.sender == minterAddress));
-        _;
-    }
-
-    function safeMint(address to) public ownerOrMinter returns (uint256 _tokenId) {
+    function safeMint(address to) external onlyOwner returns (uint256 _tokenId) {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
